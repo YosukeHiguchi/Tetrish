@@ -2,6 +2,7 @@ package src;
 
 import java.util.*;
 import java.awt.*;
+import java.security.*;
 
 import static constant.Const.*;
 
@@ -36,10 +37,20 @@ public class GameSystem {
     * update next blocklist and spawns new moving block
     */
     public void updateBlock() {
+        SecureRandom secRandom = null;
         while (nextBlk.size() < 6) {
-            nextBlk.add((int)(Math.random() * 7) + 1);
+            byte bytes[] = new byte[16];
+            try {
+                secRandom = SecureRandom.getInstance("SHA1PRNG");
+                secRandom.nextBytes(bytes);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            nextBlk.add((int)(secRandom.nextDouble() * 7) + 1);
         }
+
         field.spawnBlock(nextBlk.get(0));
+        //Game ends when there is no space to put block
         if (!field.setMovingBlock()) isGameOver = true;
         nextBlk.remove(0);
     }
