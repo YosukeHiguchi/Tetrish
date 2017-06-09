@@ -52,16 +52,6 @@ public class GameMain implements Runnable{
                 e.printStackTrace();
             }
 
-            // for (int i = 0; i < FIELD_H; i++) {
-            //     for (int j = 0; j < FIELD_W; j++) {
-            //         System.out.print(game.field.grid[i][j] + " ");
-            //     }
-            //     System.out.println();
-            // }
-            // System.out.println();
-
-
-
             gamePanel.repaint();
         }
         onGame = false;
@@ -83,6 +73,13 @@ public class GameMain implements Runnable{
             return;
         }
 
+        //Pause
+        if (key == ESC && onGame) {
+            onGame = false;
+            time = -1;
+            return;
+        }
+        //GameOver
         if (game.isGameOver) {
             if (key == ESC) gamePanel.backToMenu();
             return;
