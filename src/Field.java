@@ -208,6 +208,7 @@ public class Field {
         //         if (b.getY(i) == maxY && grid[maxY][b.getX(i)] != 0) b.moveUp();
         //     }
         // }
+        // judge below (at the edge)
         while (b.maxY() > FIELD_H - 1) b.moveUp();
 
         // judge side (next to block)
