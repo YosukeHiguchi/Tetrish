@@ -1,1 +1,2 @@
 # Tetrish
+Tetris-ish game
