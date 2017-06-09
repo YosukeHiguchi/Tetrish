@@ -201,13 +201,25 @@ public class Field {
         if (isRightTurn) b.turnRight();
         else b.turnLeft();
 
-        for (int n = 0; n < 2; n++) {
-            for (int i = 0; i < 4; i++) {
-                int maxY = b.maxY();
-                if (b.getY(i) == maxY && grid[maxY][b.getX(i)] != 0) b.moveUp();
-            }
-        }
+        // judge below
+        // for (int n = 0; n < 2; n++) {
+        //     for (int i = 0; i < 4; i++) {
+        //         int maxY = b.maxY();
+        //         if (b.getY(i) == maxY && grid[maxY][b.getX(i)] != 0) b.moveUp();
+        //     }
+        // }
         while (b.maxY() > FIELD_H - 1) b.moveUp();
+
+        // judge side (next to block)
+        // for (int n = 0; n < 2; n++) {
+        //     for (int i = 0; i < 4; i++) {
+        //         int maxX = b.maxX();
+        //         if (b.getX(i) == maxX && grid[b.getY(i)][maxX] != 0) b.moveLeft();
+        //     }
+        // }
+        // judge side (at the edge)
+        while (b.maxX() > FIELD_W - 1) b.moveLeft();
+        while (b.minX() < 0) b.moveRight();
 
         movBlk = b;
     }
