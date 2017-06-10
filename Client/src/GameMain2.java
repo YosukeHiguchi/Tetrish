@@ -97,11 +97,13 @@ public class GameMain2 extends GameMain {
         //GameOver
         if (game.isGameOver) {
             gameMainOp.didEscape = true;
+
             try {
                 socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            
             if (key == ESC) gamePanel.backToMenu();
             return;
         }
