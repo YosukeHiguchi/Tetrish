@@ -49,6 +49,7 @@ public class GameMain1 extends GameMain {
 
             gamePanel.repaint();
         }
+
         onGame = false;
         while (!onGame) {
             gamePanel.repaint();
@@ -59,7 +60,6 @@ public class GameMain1 extends GameMain {
                 e.printStackTrace();
             }
         }
-
     }
 
     public void keyAction(int key) {

@@ -15,13 +15,17 @@ public class GameMainOp extends GameMain {
     private Socket socket;
     private Boolean initial = true;
 
+    public Boolean didEscape = false;
+
     public GameMainOp(Socket socket) {
         this.socket = socket;
 
         game = new GameSystem();
         painter = new GamePainter();
 
+        game.field.clearMovingBlock();
         receiveData();
+        game.field.setMovingBlock();
 
         t = new Thread(this);
         t.start();
@@ -29,7 +33,7 @@ public class GameMainOp extends GameMain {
 
     @Override
     public void run() {
-        while (true) {
+        while (!didEscape) {
             receiveData();
         }
     }

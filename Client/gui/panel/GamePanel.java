@@ -17,12 +17,13 @@ public class GamePanel extends MyPanel{
     private GamePainter painter;
     private GameMain gameMain;
     private Thread t;
-    private int player;
     private Image bgImage;
 
-    public GamePanel(MainFrame mainFrame, int player) {
+    public int mode;
+
+    public GamePanel(MainFrame mainFrame, int mode) {
         this.mainFrame = mainFrame;
-        this.player = player;
+        this.mode = mode;
 
         try {
             bgImage = ImageIO.read(new File("gui/img/background.png"));
@@ -32,14 +33,14 @@ public class GamePanel extends MyPanel{
 
         painter = new GamePainter();
 
-        gameMain = (player == 1)? new GameMain1(this): new GameMain2(this);
+        gameMain = (mode == 1)? new GameMain1(this): new GameMain2(this);
     }
 
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
 
-        //backgroud image
+        // backgroud image
         g.drawImage(bgImage, 0, 0, this);
 
         if (!gameMain.onGame) {
