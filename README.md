@@ -7,7 +7,7 @@ sh Client/javac.sh
 sh Server/javac.sh
 ```
 
-##Run
+## Excute
 To run the game, excute
 ```bash
 java Client/Tetrish
