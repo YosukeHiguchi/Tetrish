@@ -32,15 +32,12 @@ public class Server {
         }
 
         // initialize
-        for (int i = 0; i < MAXP; i++) {
-            receiveData(i, socket.get(i));
-        }
-        for (int i = 0; i < MAXP; i++) {
-            sendData(0, i, game.get(i));
-        }
+        for (int i = 0; i < MAXP; i++) receiveData(i, socket.get(i));
+        for (int i = 0; i < MAXP; i++) sendData(0, i, game.get(i));
 
+        // Start receiving and sending data
         for (int i = 0; i < MAXP; i++) {
-            Thread t = new ServerThread(this, i);
+            Thread t = new ServerListener(this, i);
             t.start();
         }
 
@@ -50,20 +47,20 @@ public class Server {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
+            // read moving block
             String str = in.readLine();
             game.get(id).field.movBlk = new Block(Integer.parseInt(str));
 
+            // read next block list
             str = in.readLine();
             Scanner sc = new Scanner(str.substring(1, str.length() - 1)).useDelimiter(", ");
             ArrayList<Integer> blkList = new ArrayList<Integer>();
-            while (sc.hasNextInt()) {
-                blkList.add(sc.nextInt());
-            }
+            while (sc.hasNextInt()) blkList.add(sc.nextInt());
             game.get(id).nextBlk = blkList;
 
+            // read command
             str = in.readLine();
             int cmd = Integer.parseInt(str);
-
 
             sendData(cmd, id, game.get(id));
         } catch(IOException e) {

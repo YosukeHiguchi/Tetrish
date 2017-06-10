@@ -12,7 +12,7 @@ To run the game, excute
 ```bash
 java Client/Tetrish
 ```
-To run the server for 2 player, excute
+To run the server for 2 player mode, excute
 ```
 java Server/TetrishServer
 ```

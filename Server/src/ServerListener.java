@@ -1,10 +1,10 @@
 package src;
 
-public class ServerThread extends Thread {
+public class ServerListener extends Thread {
     private int id;
     private Server server;
 
-    public ServerThread(Server server, int id) {
+    public ServerListener(Server server, int id) {
         this.server = server;
         this.id = id;
     }

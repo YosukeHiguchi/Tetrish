@@ -1,5 +1,12 @@
+echo "*.java"
 javac *.java
-javac src/*.java
+echo "gui/*.java"
 javac gui/*.java
+echo "gui/paint/*.java"
 javac gui/paint/*.java
+echo "gui/panel/*.java"
 javac gui/panel/*.java
+echo "constant/*.java"
+javac constant/*.java
+echo "src/*.java"
+javac src/*.java
