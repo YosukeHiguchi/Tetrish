@@ -17,7 +17,6 @@ public class GameMain2 extends GameMain {
     private Thread t;
     private Boolean isKeyDown = false;
     private int contKey = -1;
-    private int speed = INIT_SPEED;
 
     private Socket socket;
 
@@ -55,7 +54,11 @@ public class GameMain2 extends GameMain {
 
                     sendData(contKey, game.field.movBlk, game.nextBlk);
                 }
-                if (time > (speed - 5 * (game.lineCnt / 5))) {
+
+                int lv = game.lineCnt / 5 + 1;
+                if (lv > SPEED_LV.length) lv = SPEED_LV.length;
+
+                if (time > SPEED_LV[lv - 1]) {
                     game.update();
                     time = 0;
 
@@ -103,7 +106,7 @@ public class GameMain2 extends GameMain {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            
+
             if (key == ESC) gamePanel.backToMenu();
             return;
         }

@@ -13,7 +13,6 @@ public class GameMain1 extends GameMain {
     private Thread t;
     private Boolean isKeyDown = false;
     private int contKey = -1;
-    private int speed = INIT_SPEED;
 
     public GameMain1(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -33,7 +32,11 @@ public class GameMain1 extends GameMain {
                     time = 0;
                     game.command(contKey);
                 }
-                if (time > (speed - 5 * (game.lineCnt / 5))) {
+
+                int lv = game.lineCnt / 5 + 1;
+                if (lv > SPEED_LV.length) lv = SPEED_LV.length;
+
+                if (time > SPEED_LV[lv - 1]) {
                     game.update();
                     time = 0;
                 }

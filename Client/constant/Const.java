@@ -27,7 +27,9 @@ public class Const {
 
     public static final int UPDATE = 1;
 
-    public static final int INIT_SPEED = 100;
+    public static final int SPEED_LV[] = {100, 95, 90, 85, 80, 75, 70, 65, 60, 55,
+                                           50, 45, 40, 35, 30, 25, 20, 15, 12, 10,
+                                            9,  8,  7,  6,  5,  4,  3,  2,  1,  0};
 
     public static final int BLOCK_SPAWN_X[][] = {
         {3, 4, 5, 6},
