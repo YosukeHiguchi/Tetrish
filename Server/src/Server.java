@@ -87,6 +87,7 @@ public class Server {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.get(id).getInputStream()));
 
+            if (!in.readLine().equals("BEGIN")) return;
             game.get(id).score = Integer.parseInt(in.readLine());
             game.get(id).lineCnt = Integer.parseInt(in.readLine());
             for (int i = 0; i < FIELD_H; i++) {
@@ -118,6 +119,7 @@ public class Server {
             try {
                 PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.get(n).getOutputStream())), true);
 
+                out.println("BEGIN");
                 out.println(game.get(id).score);
                 out.println(game.get(id).lineCnt);
                 for (int i = 0; i < FIELD_H; i++) {

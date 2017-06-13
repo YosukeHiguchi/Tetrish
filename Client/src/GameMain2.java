@@ -163,6 +163,7 @@ public class GameMain2 extends GameMain {
         try {
             PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
 
+            out.println("BEGIN");
             out.println(game.score);
             out.println(game.lineCnt);
             for (int i = 0; i < FIELD_H; i++) {

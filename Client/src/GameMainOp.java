@@ -92,11 +92,12 @@ public class GameMainOp extends GameMain {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
+            if (!in.readLine().equals("BEGIN")) return;
+
             game.score = Integer.parseInt(in.readLine());
             game.lineCnt = Integer.parseInt(in.readLine());
             for (int i = 0; i < FIELD_H; i++) {
                 String str = in.readLine();
-                System.out.println(str);
                 Scanner sc = new Scanner(str);
                 for (int j = 0; j < FIELD_W; j++) {
                     game.field.grid[i][j] = Integer.parseInt(sc.next());
@@ -104,10 +105,8 @@ public class GameMainOp extends GameMain {
             }
 
             game.hldBlk = Integer.parseInt(in.readLine());
-            System.out.println(game.hldBlk);
 
             String str = in.readLine();
-            System.out.println(str);
             Scanner sc = new Scanner(str.substring(1, str.length() - 1)).useDelimiter(", ");
             ArrayList<Integer> blkList = new ArrayList<Integer>();
             while (sc.hasNextInt()) blkList.add(sc.nextInt());
