@@ -83,7 +83,7 @@ public class GameMainOp extends GameMain {
                 game.update();
             }
             else game.command(cmd);
-        } catch(IOException e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }

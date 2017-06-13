@@ -33,7 +33,7 @@ public class GamePainter {
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2d.setFont(new Font("Impact", Font.BOLD, 30));
         int level = lineCnt / 5 + 1;
-        if (level >= 20) level = 20;
+        if (level >= 30) level = 30;
         g2d.drawString("Lv:   " + level, 92 + pos, 66);
         g2d.drawString("SCORE:   " + String.format("%06d", score), 198 + pos, 66);
     }
