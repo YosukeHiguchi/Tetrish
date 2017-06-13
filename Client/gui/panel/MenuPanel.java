@@ -58,7 +58,7 @@ public class MenuPanel extends MyPanel{
                 break;
             case ENTER:
             case SPACE:
-                    mainFrame.switchPanel(this, menuMap.get(selectedMenu));
+                mainFrame.switchPanel(this, menuMap.get(selectedMenu));
                 break;
         }
     }

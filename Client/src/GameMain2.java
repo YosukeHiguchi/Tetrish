@@ -26,19 +26,20 @@ public class GameMain2 extends GameMain {
         painter = new GamePainter();
         game = new GameSystem();
 
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Input address -> ");
-        String str = sc.nextLine();
+        // Scanner sc = new Scanner(System.in);
+        // System.out.print("Input address -> ");
+        // String str = sc.nextLine();
 
         try {
-            InetAddress addr = InetAddress.getByName(str);
+            InetAddress addr = InetAddress.getByName("localhost");
             socket = new Socket(addr, 50001);
             System.out.println("Connected: " + addr);
         } catch(IOException e) {
             e.printStackTrace();
         }
 
-        sendData(0, game.field.movBlk, game.nextBlk);
+        sendAllData();
+        //sendData(0, game.field.movBlk, game.nextBlk);
         gameMainOp = new GameMainOp(socket);
 
         time = 0;
@@ -56,7 +57,8 @@ public class GameMain2 extends GameMain {
                     time = 0;
                     game.command(contKey);
 
-                    sendData(contKey, game.field.movBlk, game.nextBlk);
+                    sendAllData();
+                    //sendData(contKey, game.field.movBlk, game.nextBlk);
                 }
 
                 int lv = game.lineCnt / 5 + 1;
@@ -66,7 +68,8 @@ public class GameMain2 extends GameMain {
                     game.update();
                     time = 0;
 
-                    sendData(UPDATE, game.field.movBlk, game.nextBlk);
+                    sendAllData();
+                    //sendData(UPDATE, game.field.movBlk, game.nextBlk);
                 }
 
                 time++;
@@ -123,7 +126,8 @@ public class GameMain2 extends GameMain {
         }
 
         game.command(key);
-        sendData(key, game.field.movBlk, game.nextBlk);
+        sendAllData();
+        //sendData(key, game.field.movBlk, game.nextBlk);
     }
 
     public void keyReleased() {
@@ -149,6 +153,27 @@ public class GameMain2 extends GameMain {
             out.println(b.getId());
             out.println(nextBlk);
             out.println(action);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendAllData() {
+        try {
+            PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+
+            out.println(game.score);
+            out.println(game.lineCnt);
+            for (int i = 0; i < FIELD_H; i++) {
+                for (int j = 0; j < FIELD_W; j++) {
+                    out.print(game.field.grid[i][j] + " ");
+                }
+                out.println();
+            }
+            out.println(game.hldBlk);
+            out.println(game.nextBlk);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

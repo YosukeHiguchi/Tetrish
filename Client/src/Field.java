@@ -203,7 +203,10 @@ public class Field {
 
         // judge below (at the edge)
         while (b.maxY() > FIELD_H - 1) b.moveUp();
-        // judge below (on the block)
+        // judge side (at the edge)
+        while (b.maxX() > FIELD_W - 1) b.moveLeft();
+        while (b.minX() < 0) b.moveRight();
+        // // judge below (on the block)
         for (int n = 0; n < 2; n++) {
             for (int i = 0; i < 4; i++) {
                 int maxY = b.maxY();
@@ -212,9 +215,7 @@ public class Field {
             }
         }
 
-        // judge side (at the edge)
-        while (b.maxX() > FIELD_W - 1) b.moveLeft();
-        while (b.minX() < 0) b.moveRight();
+
         // judge side (next to block)
         //
         // for (int n = 0; n < 2; n++) {

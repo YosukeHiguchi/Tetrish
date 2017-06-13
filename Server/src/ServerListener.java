@@ -11,7 +11,9 @@ public class ServerListener extends Thread {
 
     public void run() {
         while (true) {
-            server.receiveData(id, server.socket.get(id));
+            //server.receiveData(id, server.socket.get(id));
+            System.out.println("receiving: " + id);
+            server.receiveAllData(id);
 
             try{
                 Thread.sleep(10);

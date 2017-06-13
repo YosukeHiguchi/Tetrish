@@ -23,9 +23,9 @@ public class GameMainOp extends GameMain {
         game = new GameSystem();
         painter = new GamePainter();
 
-        game.field.clearMovingBlock();
-        receiveData();
-        game.field.setMovingBlock();
+        //game.field.clearMovingBlock();
+        receiveAllData();
+        //game.field.setMovingBlock();
 
         t = new Thread(this);
         t.start();
@@ -34,7 +34,8 @@ public class GameMainOp extends GameMain {
     @Override
     public void run() {
         while (!didEscape) {
-            receiveData();
+            receiveAllData();
+            //receiveData();
         }
     }
 
@@ -83,6 +84,35 @@ public class GameMainOp extends GameMain {
             }
             else game.command(cmd);
         } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void receiveAllData() {
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            game.score = Integer.parseInt(in.readLine());
+            game.lineCnt = Integer.parseInt(in.readLine());
+            for (int i = 0; i < FIELD_H; i++) {
+                String str = in.readLine();
+                System.out.println(str);
+                Scanner sc = new Scanner(str);
+                for (int j = 0; j < FIELD_W; j++) {
+                    game.field.grid[i][j] = Integer.parseInt(sc.next());
+                }
+            }
+
+            game.hldBlk = Integer.parseInt(in.readLine());
+            System.out.println(game.hldBlk);
+
+            String str = in.readLine();
+            System.out.println(str);
+            Scanner sc = new Scanner(str.substring(1, str.length() - 1)).useDelimiter(", ");
+            ArrayList<Integer> blkList = new ArrayList<Integer>();
+            while (sc.hasNextInt()) blkList.add(sc.nextInt());
+            game.nextBlk = blkList;
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

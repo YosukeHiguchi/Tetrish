@@ -32,15 +32,14 @@ public class Server {
         }
 
         // initialize
-        for (int i = 0; i < MAXP; i++) receiveData(i, socket.get(i));
-        for (int i = 0; i < MAXP; i++) sendData(0, i, game.get(i));
+        for (int i = 0; i < MAXP; i++) receiveAllData(i);//receiveData(i, socket.get(i));
+        for (int i = 0; i < MAXP; i++) sendAllData(i);//sendData(0, i, game.get(i));
 
         // Start receiving and sending data
         for (int i = 0; i < MAXP; i++) {
             Thread t = new ServerListener(this, i);
             t.start();
         }
-
     }
 
     public void receiveData(int id, Socket s) {
@@ -78,6 +77,58 @@ public class Server {
                 out.println(game.field.movBlk.getId());
                 out.println(game.nextBlk);
                 out.println(command);
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void receiveAllData(int id) {
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.get(id).getInputStream()));
+
+            game.get(id).score = Integer.parseInt(in.readLine());
+            game.get(id).lineCnt = Integer.parseInt(in.readLine());
+            for (int i = 0; i < FIELD_H; i++) {
+                String str = in.readLine();
+                Scanner sc = new Scanner(str);
+                for (int j = 0; j < FIELD_W; j++) {
+                    game.get(id).field.grid[i][j] = sc.nextInt();
+                }
+            }
+
+            game.get(id).hldBlk = Integer.parseInt(in.readLine());
+
+            String str = in.readLine();
+            Scanner sc = new Scanner(str.substring(1, str.length() - 1)).useDelimiter(", ");
+            ArrayList<Integer> blkList = new ArrayList<Integer>();
+            while (sc.hasNextInt()) blkList.add(sc.nextInt());
+            game.get(id).nextBlk = blkList;
+
+            sendAllData(id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendAllData(int id) {
+        for (int n = 0; n < MAXP; n++) {
+            if (n == id) continue;
+
+            try {
+                PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.get(n).getOutputStream())), true);
+
+                out.println(game.get(id).score);
+                out.println(game.get(id).lineCnt);
+                for (int i = 0; i < FIELD_H; i++) {
+                    for (int j = 0; j < FIELD_W; j++) {
+                        out.print(game.get(id).field.grid[i][j] + " ");
+                    }
+                    out.println();
+                }
+                out.println(game.get(id).hldBlk);
+                out.println(game.get(id).nextBlk);
+
             } catch(IOException e) {
                 e.printStackTrace();
             }
