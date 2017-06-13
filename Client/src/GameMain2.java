@@ -163,16 +163,20 @@ public class GameMain2 extends GameMain {
         try {
             PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
 
-            out.println("BEGIN");
+            out.println("score");
             out.println(game.score);
+            out.println("lineCnt");
             out.println(game.lineCnt);
+            out.println("grid");
             for (int i = 0; i < FIELD_H; i++) {
                 for (int j = 0; j < FIELD_W; j++) {
                     out.print(game.field.grid[i][j] + " ");
                 }
                 out.println();
             }
+            out.println("hldBlk");
             out.println(game.hldBlk);
+            out.println("nextBlk");
             out.println(game.nextBlk);
 
         } catch (IOException e) {

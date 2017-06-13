@@ -87,24 +87,31 @@ public class Server {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.get(id).getInputStream()));
 
-            if (!in.readLine().equals("BEGIN")) return;
-            game.get(id).score = Integer.parseInt(in.readLine());
-            game.get(id).lineCnt = Integer.parseInt(in.readLine());
-            for (int i = 0; i < FIELD_H; i++) {
-                String str = in.readLine();
-                Scanner sc = new Scanner(str);
-                for (int j = 0; j < FIELD_W; j++) {
-                    game.get(id).field.grid[i][j] = sc.nextInt();
+            if (in.readLine().equals("score")) {
+                game.get(id).score = Integer.parseInt(in.readLine());
+            }
+            if (in.readLine().equals("lineCnt")) {
+                game.get(id).lineCnt = Integer.parseInt(in.readLine());
+            }
+            if (in.readLine().equals("grid")) {
+                for (int i = 0; i < FIELD_H; i++) {
+                    String str = in.readLine();
+                    Scanner sc = new Scanner(str);
+                    for (int j = 0; j < FIELD_W; j++) {
+                        game.get(id).field.grid[i][j] = sc.nextInt();
+                    }
                 }
             }
-
-            game.get(id).hldBlk = Integer.parseInt(in.readLine());
-
-            String str = in.readLine();
-            Scanner sc = new Scanner(str.substring(1, str.length() - 1)).useDelimiter(", ");
-            ArrayList<Integer> blkList = new ArrayList<Integer>();
-            while (sc.hasNextInt()) blkList.add(sc.nextInt());
-            game.get(id).nextBlk = blkList;
+            if (in.readLine().equals("hldBlk")) {
+                game.get(id).hldBlk = Integer.parseInt(in.readLine());
+            }
+            if (in.readLine().equals("nextList")) {
+                String str = in.readLine();
+                Scanner sc = new Scanner(str.substring(1, str.length() - 1)).useDelimiter(", ");
+                ArrayList<Integer> blkList = new ArrayList<Integer>();
+                while (sc.hasNextInt()) blkList.add(sc.nextInt());
+                game.get(id).nextBlk = blkList;
+            }
 
             sendAllData(id);
         } catch (IOException e) {
@@ -119,16 +126,20 @@ public class Server {
             try {
                 PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.get(n).getOutputStream())), true);
 
-                out.println("BEGIN");
+                out.println("score");
                 out.println(game.get(id).score);
+                out.println("lineCnt");
                 out.println(game.get(id).lineCnt);
+                out.println("grid");
                 for (int i = 0; i < FIELD_H; i++) {
                     for (int j = 0; j < FIELD_W; j++) {
                         out.print(game.get(id).field.grid[i][j] + " ");
                     }
                     out.println();
                 }
+                out.println("hldBlk");
                 out.println(game.get(id).hldBlk);
+                out.println("nextBlk");
                 out.println(game.get(id).nextBlk);
 
             } catch(IOException e) {
