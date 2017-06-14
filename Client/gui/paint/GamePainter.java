@@ -30,8 +30,11 @@ public class GamePainter {
 
         g2d.setColor(Color.WHITE);
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g2d.setFont(new Font("Impact", Font.BOLD, 50));
-        g2d.drawString(message, 15, GAME_H / 2);
+
+        int fontSize = (OS_NAME.startsWith("windows"))? 45: 50;
+        int height = (OS_NAME.startsWith("windows"))? GAME_H_WIN: GAME_H;
+        g2d.setFont(new Font("Impact", Font.BOLD, fontSize));
+        g2d.drawString(message, 15, height / 2);
     }
 
     public void drawScore(Graphics g, int player, int score, int lineCnt) {

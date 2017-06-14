@@ -58,7 +58,7 @@ public class MenuPanel extends MyPanel {
                 break;
             case ENTER:
             case SPACE:
-                mainFrame.switchPanel(this, menuMap.get(selectedMenu));
+                if (selectedMenu != 0) mainFrame.switchPanel(this, menuMap.get(selectedMenu));
                 break;
         }
     }
@@ -100,7 +100,7 @@ public class MenuPanel extends MyPanel {
             else if (y > 354 && y < 394) selectedMenu = 2;
             else if (y > 404 && y < 454) selectedMenu = 3;
         }
-        
+
         repaint();
     }
 }
