@@ -98,12 +98,6 @@ public class GameMain1 extends GameMain {
     }
 
     public void drawGame(Graphics g) {
-        if (game.field.guideBlock != null)
-            painter.drawGuideBlock(g, game.field.guideBlock);
-
-        painter.drawScore(g, 0, game.score, game.lineCnt);
-        painter.drawField(g, 0, game.field);
-        painter.drawHoldBlock(g, 0, game.hldBlk);
-        painter.drawNextBlockList(g, 0, game.nextBlk);
+        painter.draw(g, game, 0);
     }
 }

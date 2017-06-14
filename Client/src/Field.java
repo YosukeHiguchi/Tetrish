@@ -32,8 +32,8 @@ public class Field {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
     };
 
-    Block movBlk = null;
-    Block guideBlock = null;
+    public Block movBlk = null;
+    public Block guideBlock = null;
 
     public Field(GameSystem game) {
         this.game = game;

@@ -39,7 +39,6 @@ public class GameMain2 extends GameMain {
         }
 
         sendAllData();
-        //sendData(0, game.field.movBlk, game.nextBlk);
         gameMainOp = new GameMainOp(socket);
 
         time = 0;
@@ -58,7 +57,6 @@ public class GameMain2 extends GameMain {
                     game.command(contKey);
 
                     sendAllData();
-                    //sendData(contKey, game.field.movBlk, game.nextBlk);
                 }
 
                 int lv = game.lineCnt / 5 + 1;
@@ -69,7 +67,6 @@ public class GameMain2 extends GameMain {
                     time = 0;
 
                     sendAllData();
-                    //sendData(UPDATE, game.field.movBlk, game.nextBlk);
                 }
 
                 time++;
@@ -127,7 +124,6 @@ public class GameMain2 extends GameMain {
 
         game.command(key);
         sendAllData();
-        //sendData(key, game.field.movBlk, game.nextBlk);
     }
 
     public void keyReleased() {
@@ -135,28 +131,8 @@ public class GameMain2 extends GameMain {
     }
 
     public void drawGame(Graphics g) {
-        if (game.field.guideBlock != null)
-            painter.drawGuideBlock(g, game.field.guideBlock);
-
-        painter.drawScore(g, 0, game.score, game.lineCnt);
-        painter.drawField(g, 0, game.field);
-        painter.drawHoldBlock(g, 0, game.hldBlk);
-        painter.drawNextBlockList(g, 0, game.nextBlk);
-
+        painter.draw(g, game, 0);
         gameMainOp.drawGame(g);
-    }
-
-    public void sendData(int action, Block b, ArrayList<Integer> nextBlk) {
-        try {
-            PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-
-            out.println(b.getId());
-            out.println(nextBlk);
-            out.println(action);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void sendAllData() {
@@ -178,6 +154,19 @@ public class GameMain2 extends GameMain {
             out.println(game.hldBlk);
             out.println("nextBlk");
             out.println(game.nextBlk);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendCommand(int action, Block b, ArrayList<Integer> nextBlk) {
+        try {
+            PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+
+            out.println(b.getId());
+            out.println(nextBlk);
+            out.println(action);
 
         } catch (IOException e) {
             e.printStackTrace();

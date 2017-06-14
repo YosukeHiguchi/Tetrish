@@ -3,12 +3,21 @@ package gui.paint;
 import java.util.*;
 import java.awt.*;
 
-import src.Field;
-import src.Block;
-
+import src.*;
 import static constant.Const.*;
 
+
 public class GamePainter {
+    public void draw(Graphics g, GameSystem game, int player) {
+        if (player == 0 && game.field.guideBlock != null) {
+            drawGuideBlock(g, game.field.guideBlock);
+        }
+        drawScore(g, player, game.score, game.lineCnt);
+        drawField(g, player, game.field);
+        drawHoldBlock(g, player, game.hldBlk);
+        drawNextBlockList(g, player, game.nextBlk);
+    }
+
     private int pauseCount = 0;
     private Boolean pauseStrOn = true;
     public void drawPauseScreen(Graphics2D g2d, String message) {
