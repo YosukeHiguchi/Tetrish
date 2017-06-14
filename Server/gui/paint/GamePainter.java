@@ -41,7 +41,7 @@ public class GamePainter {
     public void drawField(Graphics g, int player, Field field) {
         for (int y = 0; y < FIELD_H; y++) {
             for (int x = 0; x < FIELD_W; x++) {
-                if (field.grid[y][x] != 0) drawCell(g, player, x, y, BLOCK_COLOR[field.grid[y][x] - 1]);
+                if (field.getGrid(y, x) != 0) drawCell(g, player, x, y, BLOCK_COLOR[field.getGrid(y, x) - 1]);
             }
         }
     }

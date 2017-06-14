@@ -33,10 +33,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void drawGame(Graphics g, GameSystem game, int player) {
-        painter.drawScore(g, player, game.score, game.lineCnt);
-        painter.drawField(g, player, game.field);
-        painter.drawHoldBlock(g, player, game.hldBlk);
-        painter.drawNextBlockList(g, player, game.nextBlk);
+        painter.drawScore(g, player, game.getScore(), game.getLineCnt());
+        painter.drawField(g, player, game.getField());
+        painter.drawHoldBlock(g, player, game.getHldBlk());
+        painter.drawNextBlockList(g, player, game.getNextBlk());
     }
 
     @Override
