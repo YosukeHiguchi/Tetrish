@@ -11,7 +11,7 @@ import static constant.Const.*;
 import gui.MainFrame;
 import gui.paint.MenuPainter;
 
-public class MenuPanel extends MyPanel{
+public class MenuPanel extends MyPanel {
     private MainFrame mainFrame;
     private MenuPainter painter;
     private Image titleImage;
@@ -49,11 +49,11 @@ public class MenuPanel extends MyPanel{
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case UP:
-                selectedMenu = (selectedMenu == 1)? menuMap.size(): selectedMenu - 1;
+                selectedMenu = (selectedMenu == 0 || selectedMenu == 1)? menuMap.size(): selectedMenu - 1;
                 repaint();
                 break;
             case DOWN:
-                selectedMenu = (selectedMenu == menuMap.size())? 1: selectedMenu + 1;
+                selectedMenu = (selectedMenu == 0 || selectedMenu == menuMap.size())? 1: selectedMenu + 1;
                 repaint();
                 break;
             case ENTER:
@@ -68,4 +68,38 @@ public class MenuPanel extends MyPanel{
 
     @Override
     public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
+
+    @Override
+    public void mousePressed(MouseEvent e) {}
+
+    @Override
+    public void mouseReleased(MouseEvent e) {}
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (selectedMenu != 0) mainFrame.switchPanel(this, menuMap.get(selectedMenu));
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {}
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        Point point = e.getPoint();
+        int x = point.x, y = point.y;
+
+        if (x > 209 && x < 330) {
+            if (y > 304 && y < 343) selectedMenu = 1;
+            else if (y > 354 && y < 394) selectedMenu = 2;
+            else if (y > 404 && y < 454) selectedMenu = 3;
+            else selectedMenu = 0;
+            repaint();
+        }
+    }
 }

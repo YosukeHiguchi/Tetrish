@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 public class Const {
+    private Const() {}
+
     public static final int PORT = 50001;
 
     public static final int MAXP = 2;

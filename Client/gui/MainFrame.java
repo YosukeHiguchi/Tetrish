@@ -23,12 +23,27 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null); //center window
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //close
 
+
+        panel.setLayout(null);
+
+        if (title.equals("Menu")) {
+            JTextArea tx = new JTextArea();
+            tx.setBounds(350, 342, 100, 18);
+            panel.add(tx);
+        }
+
         addKeyListener(panel);
+        addMouseListener(panel);
+        addMouseMotionListener(panel);
+
         CP.add(panel);
     }
 
     public void switchPanel(JPanel panel, String str) {
         removeKeyListener((MyPanel)panel);
+        removeMouseListener((MyPanel)panel);
+        removeMouseMotionListener((MyPanel)panel);
+        panel.removeAll();
         CP.remove(panel);
 
         if (str.equals("1 PLAYER")) {
