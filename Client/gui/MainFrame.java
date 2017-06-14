@@ -26,11 +26,11 @@ public class MainFrame extends JFrame {
 
         panel.setLayout(null);
 
-        if (title.equals("Menu")) {
-            JTextArea tx = new JTextArea();
-            tx.setBounds(350, 342, 100, 18);
-            panel.add(tx);
-        }
+        // if (title.equals("Menu")) {
+        //     JTextArea tx = new JTextArea();
+        //     tx.setBounds(350, 342, 100, 18);
+        //     panel.add(tx);
+        // }
 
         addKeyListener(panel);
         addMouseListener(panel);
