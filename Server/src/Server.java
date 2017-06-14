@@ -13,8 +13,8 @@ public class Server {
     public ArrayList<Socket> socket = new ArrayList<Socket>(MAXP);
 
     public Server() {
-        // MainFrame mf = new MainFrame("Game Viewing");
-        // mf.setVisible(true);
+        MainFrame mf = new MainFrame("Game Viewing", game);
+        mf.setVisible(true);
 
         try {
             ServerSocket server = new ServerSocket(PORT);
