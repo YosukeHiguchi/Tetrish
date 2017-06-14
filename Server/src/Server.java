@@ -63,7 +63,7 @@ public class Server {
             if (in.readLine().equals("hldBlk")) {
                 game.get(id).setHldBlk(Integer.parseInt(in.readLine()));
             }
-            if (in.readLine().equals("nextList")) {
+            if (in.readLine().equals("nextBlk")) {
                 String str = in.readLine();
                 Scanner sc = new Scanner(str.substring(1, str.length() - 1)).useDelimiter(", ");
                 ArrayList<Integer> blkList = new ArrayList<Integer>();
