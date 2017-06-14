@@ -4,11 +4,17 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 public class Const {
+    private Const() {}
+
+    public static final String OS_NAME = System.getProperty("os.name").toLowerCase();
+
     public static final int MENU_W = 539;
     public static final int MENU_H = 500;
 
     public static final int GAME_W = 960;
     public static final int GAME_H = 720;
+    public static final int GAME_H_WIN = 750;
+
 
     public static final int FIELD_W = 10;
     public static final int FIELD_H = 20;

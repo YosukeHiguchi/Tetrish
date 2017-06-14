@@ -10,10 +10,11 @@ public class MainFrame extends JFrame {
     private Container CP;
 
     public MainFrame(String title) {
+        System.out.println("OS: " + OS_NAME);
+
         CP = getContentPane();
 
         setFrame(title, MENU_W, MENU_H, new MenuPanel(this));
-        //setFrame(title, GAME_W / 2, GAME_H, new GamePanel(this, 1));
     }
 
     private void setFrame(String title, int width, int height, MyPanel panel) {
@@ -46,13 +47,16 @@ public class MainFrame extends JFrame {
         panel.removeAll();
         CP.remove(panel);
 
+        int h = (OS_NAME.startsWith("windows"))? GAME_H_WIN: GAME_H;
+        System.out.println("Height: " + h);
+
         if (str.equals("1 PLAYER")) {
             System.out.println("1 PLAYER GAME");
-            setFrame("Game", GAME_W / 2, GAME_H, new GamePanel(this, 1));
+            setFrame("Game", GAME_W / 2, h, new GamePanel(this, 1));
         }
         else if (str.equals("2 PLAYER")) {
             System.out.println("2 PLAYER GAME");
-            setFrame("Game", GAME_W, GAME_H, new GamePanel(this, 2));
+            setFrame("Game", GAME_W, h, new GamePanel(this, 2));
         }
         else if (str.equals("MENU")) {
             System.out.println("MENU SELECTION");
