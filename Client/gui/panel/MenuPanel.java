@@ -94,12 +94,13 @@ public class MenuPanel extends MyPanel {
         Point point = e.getPoint();
         int x = point.x, y = point.y;
 
+        selectedMenu = 0;
         if (x > 209 && x < 330) {
             if (y > 304 && y < 343) selectedMenu = 1;
             else if (y > 354 && y < 394) selectedMenu = 2;
             else if (y > 404 && y < 454) selectedMenu = 3;
-            else selectedMenu = 0;
-            repaint();
         }
+        
+        repaint();
     }
 }

@@ -55,6 +55,10 @@ public class GamePanel extends MyPanel{
         }
     }
 
+    public void backToMenu() {
+        mainFrame.switchPanel(this, "MENU");
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
         gameMain.keyAction(e.getKeyCode());
@@ -67,10 +71,6 @@ public class GamePanel extends MyPanel{
 
     @Override
     public void keyTyped(KeyEvent e) {}
-
-    public void backToMenu() {
-        mainFrame.switchPanel(this, "MENU");
-    }
 
     @Override
     public void mouseEntered(MouseEvent e) {}
