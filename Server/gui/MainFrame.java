@@ -13,20 +13,14 @@ public class MainFrame extends JFrame {
 
     public MainFrame(String title, ArrayList<GameSystem> game) {
         CP = getContentPane();
+        GamePanel panel = new GamePanel(game);
 
-        System.out.println("hi");
-
-        setFrame(title, GAME_W, GAME_H, new GamePanel(this, 2, game));
-    }
-
-    private void setFrame(String title, int width, int height, MyPanel panel) {
         setTitle(title);
-        setSize(width, height);
+        setSize(GAME_W, GAME_H);
         setResizable(false);
         setLocationRelativeTo(null); //center window
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //close
 
-        addKeyListener(panel);
         CP.add(panel);
     }
 }

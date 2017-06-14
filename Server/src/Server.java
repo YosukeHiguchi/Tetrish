@@ -9,8 +9,7 @@ import gui.MainFrame;
 
 public class Server {
     private ArrayList<GameSystem> game = new ArrayList<GameSystem>(MAXP);
-
-    public ArrayList<Socket> socket = new ArrayList<Socket>(MAXP);
+    private ArrayList<Socket> socket = new ArrayList<Socket>(MAXP);
 
     public Server() {
         MainFrame mf = new MainFrame("Game Viewing", game);
@@ -39,47 +38,6 @@ public class Server {
         for (int i = 0; i < MAXP; i++) {
             Thread t = new ServerListener(this, i);
             t.start();
-        }
-    }
-
-    public void receiveData(int id, Socket s) {
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-
-            // read moving block
-            String str = in.readLine();
-            game.get(id).field.movBlk = new Block(Integer.parseInt(str));
-
-            // read next block list
-            str = in.readLine();
-            Scanner sc = new Scanner(str.substring(1, str.length() - 1)).useDelimiter(", ");
-            ArrayList<Integer> blkList = new ArrayList<Integer>();
-            while (sc.hasNextInt()) blkList.add(sc.nextInt());
-            game.get(id).nextBlk = blkList;
-
-            // read command
-            str = in.readLine();
-            int cmd = Integer.parseInt(str);
-
-            sendData(cmd, id, game.get(id));
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void sendData(int command, int id, GameSystem game) {
-        for (int i = 0; i < MAXP; i++) {
-            if (i == id) continue;
-
-            try {
-                PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.get(i).getOutputStream())), true);
-
-                out.println(game.field.movBlk.getId());
-                out.println(game.nextBlk);
-                out.println(command);
-            } catch(IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -142,6 +100,47 @@ public class Server {
                 out.println("nextBlk");
                 out.println(game.get(id).nextBlk);
 
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void receiveCommand(int id, Socket s) {
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+
+            // read moving block
+            String str = in.readLine();
+            game.get(id).field.movBlk = new Block(Integer.parseInt(str));
+
+            // read next block list
+            str = in.readLine();
+            Scanner sc = new Scanner(str.substring(1, str.length() - 1)).useDelimiter(", ");
+            ArrayList<Integer> blkList = new ArrayList<Integer>();
+            while (sc.hasNextInt()) blkList.add(sc.nextInt());
+            game.get(id).nextBlk = blkList;
+
+            // read command
+            str = in.readLine();
+            int cmd = Integer.parseInt(str);
+
+            sendCommand(cmd, id, game.get(id));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendCommand(int command, int id, GameSystem game) {
+        for (int i = 0; i < MAXP; i++) {
+            if (i == id) continue;
+
+            try {
+                PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.get(i).getOutputStream())), true);
+
+                out.println(game.field.movBlk.getId());
+                out.println(game.nextBlk);
+                out.println(command);
             } catch(IOException e) {
                 e.printStackTrace();
             }

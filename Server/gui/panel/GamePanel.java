@@ -9,20 +9,15 @@ import javax.imageio.ImageIO;
 
 import static constant.Const.*;
 import src.*;
-import gui.MainFrame;
 import gui.paint.GamePainter;
 
-public class GamePanel extends MyPanel implements Runnable {
-    private MainFrame mainFrame;
+public class GamePanel extends JPanel implements Runnable {
     private GamePainter painter;
     private Thread t;
-    private int player;
     private Image bgImage;
     private ArrayList<GameSystem> game;
 
-    public GamePanel(MainFrame mainFrame, int player, ArrayList<GameSystem> game) {
-        this.mainFrame = mainFrame;
-        this.player = player;
+    public GamePanel(ArrayList<GameSystem> game) {
         this.game = game;
 
         try {
@@ -65,13 +60,4 @@ public class GamePanel extends MyPanel implements Runnable {
             drawGame(g, game.get(i), i);
         }
     }
-
-    @Override
-    public void keyPressed(KeyEvent e) {}
-
-    @Override
-    public void keyReleased(KeyEvent e) {}
-
-    @Override
-    public void keyTyped(KeyEvent e) {}
 }
