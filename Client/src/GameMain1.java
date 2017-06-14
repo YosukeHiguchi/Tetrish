@@ -26,14 +26,14 @@ public class GameMain1 extends GameMain {
 
     @Override
     public void run() {
-        while (!game.isGameOver) {
+        while (!game.getIsGameOver()) {
             if (onGame) {
                 if (isKeyDown && time > 5) {
                     time = 0;
                     game.command(contKey);
                 }
 
-                int lv = game.lineCnt / 5 + 1;
+                int lv = game.getLineCnt() / 5 + 1;
                 if (lv > SPEED_LV.length) lv = SPEED_LV.length;
 
                 if (time > SPEED_LV[lv - 1]) {
@@ -66,7 +66,7 @@ public class GameMain1 extends GameMain {
     }
 
     public void keyAction(int key) {
-        if (key == SPACE && !onGame && !game.isGameOver) {
+        if (key == SPACE && !onGame && !game.getIsGameOver()) {
             onGame = true;
             return;
         }
@@ -78,7 +78,7 @@ public class GameMain1 extends GameMain {
             return;
         }
         //GameOver
-        if (game.isGameOver) {
+        if (game.getIsGameOver()) {
             if (key == ESC) gamePanel.backToMenu();
             return;
         }

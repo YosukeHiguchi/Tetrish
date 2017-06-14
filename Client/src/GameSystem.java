@@ -7,13 +7,13 @@ import java.security.*;
 import static constant.Const.*;
 
 public class GameSystem {
-    public int score = 0;
-    public int lineCnt = 0;
-    public int hldBlk = -1;
-    public Boolean didHold = false;
-    public Field field;
-    public ArrayList<Integer> nextBlk;
-    public Boolean isGameOver = false;
+    private int score = 0;
+    private int lineCnt = 0;
+    private int hldBlk = -1;
+    private Boolean didHold = false;
+    private Field field;
+    private ArrayList<Integer> nextBlk;
+    private Boolean isGameOver = false;
 
     public GameSystem() {
         field = new Field(this);
@@ -22,8 +22,48 @@ public class GameSystem {
         update();
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getLineCnt() {
+        return lineCnt;
+    }
+
+    public void setLineCnt(int lineCnt) {
+        this.lineCnt = lineCnt;
+    }
+
+    public int getHldBlk() {
+        return hldBlk;
+    }
+
+    public void setHldBlk(int hldBlk) {
+        this.hldBlk = hldBlk;
+    }
+
+    public Field getField() {
+        return field;
+    }
+
+    public ArrayList<Integer> getNextBlk() {
+        return nextBlk;
+    }
+
+    public void setNextBlk(ArrayList<Integer> nextBlk) {
+        this.nextBlk = nextBlk;
+    }
+
+    public Boolean getIsGameOver() {
+        return isGameOver;
+    }
+
     public void update() {
-        if (!field.isBlockMovable(field.movBlk, 2)) {
+        if (!field.isBlockMovable(field.getMovBlk(), 2)) {
             updateScore();
             updateBlock();
             didHold = false;
@@ -84,11 +124,11 @@ public class GameSystem {
     public void holdBlock() {
         field.clearMovingBlock();
         if (hldBlk == -1) {
-            hldBlk = field.movBlk.getId();
+            hldBlk = field.getMovBlk().getId();
             updateBlock();
         } else {
             int hoge = hldBlk;
-            hldBlk = field.movBlk.getId();
+            hldBlk = field.getMovBlk().getId();
             field.spawnBlock(hoge);
         }
         field.setMovingBlock();

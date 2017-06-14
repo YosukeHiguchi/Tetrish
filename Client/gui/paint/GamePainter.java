@@ -9,13 +9,13 @@ import static constant.Const.*;
 
 public class GamePainter {
     public void draw(Graphics g, GameSystem game, int player) {
-        if (player == 0 && game.field.guideBlock != null) {
-            drawGuideBlock(g, game.field.guideBlock);
+        if (player == 0 && game.getField().getGuideBlock() != null) {
+            drawGuideBlock(g, game.getField().getGuideBlock());
         }
-        drawScore(g, player, game.score, game.lineCnt);
-        drawField(g, player, game.field);
-        drawHoldBlock(g, player, game.hldBlk);
-        drawNextBlockList(g, player, game.nextBlk);
+        drawScore(g, player, game.getScore(), game.getLineCnt());
+        drawField(g, player, game.getField());
+        drawHoldBlock(g, player, game.getHldBlk());
+        drawNextBlockList(g, player, game.getNextBlk());
     }
 
     private int pauseCount = 0;
@@ -50,7 +50,7 @@ public class GamePainter {
     public void drawField(Graphics g, int player, Field field) {
         for (int y = 0; y < FIELD_H; y++) {
             for (int x = 0; x < FIELD_W; x++) {
-                if (field.grid[y][x] != 0) drawCell(g, player, x, y, BLOCK_COLOR[field.grid[y][x] - 1]);
+                if (field.getGrid(y, x) != 0) drawCell(g, player, x, y, BLOCK_COLOR[field.getGrid(y, x) - 1]);
             }
         }
     }

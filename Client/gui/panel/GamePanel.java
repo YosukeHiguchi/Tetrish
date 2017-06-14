@@ -18,8 +18,7 @@ public class GamePanel extends MyPanel{
     private GameMain gameMain;
     private Thread t;
     private Image bgImage;
-
-    public int mode;
+    private int mode;
 
     public GamePanel(MainFrame mainFrame, int mode) {
         this.mainFrame = mainFrame;

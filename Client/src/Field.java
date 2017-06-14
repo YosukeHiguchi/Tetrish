@@ -4,39 +4,29 @@ import static constant.Const.*;
 
 public class Field {
     private GameSystem game;
-
-    public int grid[][] = {
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        //top layer
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-    };
-
-    public Block movBlk = null;
-    public Block guideBlock = null;
+    private int grid[][];
+    private Block movBlk = null;
+    private Block guideBlock = null;
 
     public Field(GameSystem game) {
         this.game = game;
+        grid = new int[FIELD_H + 3][FIELD_W];
+    }
+
+    public Block getMovBlk() {
+        return movBlk;
+    }
+
+    public Block getGuideBlock() {
+        return guideBlock;
+    }
+
+    public int getGrid(int x, int y) {
+        return grid[x][y];
+    }
+
+    public void setGrid(int x, int y, int val) {
+        grid[x][y] = val;
     }
 
     public void spawnBlock(int blockId) {
@@ -54,7 +44,7 @@ public class Field {
                 break;
             case DOWN:
                 if (isBlockMovable(movBlk, 2)) {
-                    game.score++;
+                    game.setScore(game.getScore() + 1);
                     movBlk.moveDown();
                 }
                 else {
@@ -73,7 +63,7 @@ public class Field {
                 break;
             case SPACE:
                 while (isBlockMovable(movBlk, 2)) {
-                    game.score++;
+                    game.setScore(game.getScore() + 1);
                     movBlk.moveDown();
                 }
                 setMovingBlock();
@@ -108,7 +98,7 @@ public class Field {
                 grid[movBlk.getY(i)][movBlk.getX(i)] = movBlk.getId();
         }
 
-        getGuideBlock();
+        calcGuideBlock();
 
         return true;
     }
@@ -182,7 +172,7 @@ public class Field {
         return true;
     }
 
-    private void getGuideBlock() {
+    private void calcGuideBlock() {
         int x[] = new int[4];
         int y[] = new int[4];
         for (int i = 0; i < 4; i++) {
@@ -228,6 +218,4 @@ public class Field {
 
         movBlk = b;
     }
-
-
 }

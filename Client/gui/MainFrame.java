@@ -10,8 +10,6 @@ public class MainFrame extends JFrame {
     private Container CP;
 
     public MainFrame(String title) {
-        System.out.println("OS: " + OS_NAME);
-
         CP = getContentPane();
 
         setFrame(title, MENU_W, MENU_H, new MenuPanel(this));
@@ -48,7 +46,6 @@ public class MainFrame extends JFrame {
         CP.remove(panel);
 
         int h = (OS_NAME.startsWith("windows"))? GAME_H_WIN: GAME_H;
-        System.out.println("Height: " + h);
 
         if (str.equals("1 PLAYER")) {
             System.out.println("1 PLAYER GAME");

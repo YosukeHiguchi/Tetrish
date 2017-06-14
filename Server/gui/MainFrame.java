@@ -12,8 +12,6 @@ public class MainFrame extends JFrame {
     private Container CP;
 
     public MainFrame(String title, ArrayList<GameSystem> game) {
-        System.out.println("OS: " + OS_NAME);
-
         CP = getContentPane();
         GamePanel panel = new GamePanel(game);
 
