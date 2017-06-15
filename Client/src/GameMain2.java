@@ -20,18 +20,14 @@ public class GameMain2 extends GameMain {
 
     private Socket socket;
 
-    public GameMain2(GamePanel gamePanel) {
+    public GameMain2(GamePanel gamePanel, String address) {
         this.gamePanel = gamePanel;
 
         painter = new GamePainter();
         game = new GameSystem();
 
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Input address -> ");
-        String str = sc.nextLine();
-
         try {
-            InetAddress addr = InetAddress.getByName(str);
+            InetAddress addr = InetAddress.getByName(address);
             socket = new Socket(addr, 50001);
             System.out.println("Connected: " + addr);
         } catch(IOException e) {

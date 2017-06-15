@@ -22,14 +22,7 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null); //center window
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //close
 
-
         panel.setLayout(null);
-
-        // if (title.equals("Menu")) {
-        //     JTextArea tx = new JTextArea();
-        //     tx.setBounds(350, 342, 100, 18);
-        //     panel.add(tx);
-        // }
 
         addKeyListener(panel);
         addMouseListener(panel);
@@ -38,22 +31,21 @@ public class MainFrame extends JFrame {
         CP.add(panel);
     }
 
-    public void switchPanel(JPanel panel, String str) {
+    public void switchPanel(JPanel panel, String str, String addr) {
         removeKeyListener((MyPanel)panel);
         removeMouseListener((MyPanel)panel);
         removeMouseMotionListener((MyPanel)panel);
-        panel.removeAll();
         CP.remove(panel);
 
         int h = (OS_NAME.startsWith("windows"))? GAME_H_WIN: GAME_H;
 
         if (str.equals("1 PLAYER")) {
             System.out.println("1 PLAYER GAME");
-            setFrame("Game", GAME_W / 2, h, new GamePanel(this, 1));
+            setFrame("Game", GAME_W / 2, h, new GamePanel(this));
         }
         else if (str.equals("2 PLAYER")) {
             System.out.println("2 PLAYER GAME");
-            setFrame("Game", GAME_W, h, new GamePanel(this, 2));
+            setFrame("Game", GAME_W, h, new GamePanel(this, addr));
         }
         else if (str.equals("MENU")) {
             System.out.println("MENU SELECTION");

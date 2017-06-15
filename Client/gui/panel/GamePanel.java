@@ -18,11 +18,9 @@ public class GamePanel extends MyPanel{
     private GameMain gameMain;
     private Thread t;
     private Image bgImage;
-    private int mode;
 
-    public GamePanel(MainFrame mainFrame, int mode) {
+    public GamePanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
-        this.mode = mode;
 
         try {
             bgImage = ImageIO.read(new File("gui/img/background.png"));
@@ -32,7 +30,21 @@ public class GamePanel extends MyPanel{
 
         painter = new GamePainter();
 
-        gameMain = (mode == 1)? new GameMain1(this): new GameMain2(this);
+        gameMain = new GameMain1(this);
+    }
+
+    public GamePanel(MainFrame mainFrame, String addr) {
+        this.mainFrame = mainFrame;
+
+        try {
+            bgImage = ImageIO.read(new File("gui/img/background.png"));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        painter = new GamePainter();
+
+        gameMain = new GameMain2(this, addr);
     }
 
     @Override
@@ -55,7 +67,7 @@ public class GamePanel extends MyPanel{
     }
 
     public void backToMenu() {
-        mainFrame.switchPanel(this, "MENU");
+        mainFrame.switchPanel(this, "MENU", "");
     }
 
     @Override
