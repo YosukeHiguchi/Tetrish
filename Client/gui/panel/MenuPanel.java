@@ -78,8 +78,8 @@ public class MenuPanel extends MyPanel implements Runnable {
         }
 
         if (slide) {
-            painter.drawAddrInputBox((Graphics2D)g, new Rectangle(330, 230 + 50 * selectedMenu, slide_w, 40), "Input address and hit Enter");
-            painter.drawAddrInputText((Graphics2D)g, new Rectangle(330, 230 + 50 * selectedMenu, slide_w, 40));
+            painter.drawAddrInputBox((Graphics2D)g, new Rectangle(330, 230 + 50 * selectedMenu, slide_w, 40));
+            painter.drawAddrInputText((Graphics2D)g, new Rectangle(330, 230 + 50 * selectedMenu, slide_w, 40), "Input address and hit Enter");
         }
     }
 
@@ -129,7 +129,7 @@ public class MenuPanel extends MyPanel implements Runnable {
             anim = new Thread(this);
             anim.start();
         }
-        //if (selectedMenu != 0) mainFrame.switchPanel(this, menuMap.get(selectedMenu));
+        else if (selectedMenu != 0) mainFrame.switchPanel(this, menuMap.get(selectedMenu), "");
     }
 
     @Override

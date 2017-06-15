@@ -1,17 +1,21 @@
 package src;
 
+import java.net.*;
+
 public class ServerListener extends Thread {
     private int id;
     private Server server;
+    private Socket socket;
 
-    public ServerListener(Server server, int id) {
+    public ServerListener(Server server, int id, Socket socket) {
         this.server = server;
         this.id = id;
+        this.socket = socket;
     }
 
     public void run() {
         while (true) {
-            System.out.println("receiving: " + id);
+            if (socket.isClosed()) break;
             server.receiveAllData(id);
 
             try{

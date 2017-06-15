@@ -36,7 +36,7 @@ public class Server {
 
         // Start receiving and sending data
         for (int i = 0; i < MAXP; i++) {
-            Thread t = new ServerListener(this, i);
+            Thread t = new ServerListener(this, i, socket.get(i));
             t.start();
         }
     }
@@ -73,7 +73,7 @@ public class Server {
 
             sendAllData(id);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
