@@ -69,16 +69,6 @@ public class GameMain1 extends GameMain {
     }
 
     public void keyAction(int key) {
-        if (game.getGauge() == MAX_GAUGE) {
-            keyCommand.remove(0);
-            keyCommand.add(key);
-            System.out.println(keyCommand);
-            if (checkCommand()) {
-                game.setGauge(0);
-                game.setHldBlk(8);
-            }
-        }
-
         if (key == SPACE && !onGame && !game.getIsGameOver()) {
             onGame = true;
             return;
@@ -111,7 +101,7 @@ public class GameMain1 extends GameMain {
     }
 
     public void drawGame(Graphics g) {
-        painter.draw(g, game, 0);
+        painter.draw(g, game, 0, 1);
     }
 
     public Boolean checkCommand() {

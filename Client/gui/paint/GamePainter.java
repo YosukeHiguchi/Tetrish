@@ -8,7 +8,7 @@ import static constant.Const.*;
 
 
 public class GamePainter {
-    public void draw(Graphics g, GameSystem game, int player) {
+    public void draw(Graphics g, GameSystem game, int player, int mode) {
         if (player == 0 && game.getField().getGuideBlock() != null) {
             drawGuideBlock(g, game.getField().getGuideBlock());
         }
@@ -17,7 +17,7 @@ public class GamePainter {
         drawHoldBlock(g, player, game.getHldBlk());
         drawNextBlockList(g, player, game.getNextBlk());
 
-        drawGauge((Graphics2D)g, player, game.getGauge());
+        if (mode == 2) drawGauge((Graphics2D)g, player, game.getGauge());
     }
 
     public void drawGauge(Graphics2D g2d, int player, int gauge) {

@@ -45,7 +45,7 @@ public class GameMainOp extends GameMain {
     public void keyReleased() {}
 
     public void drawGame(Graphics g) {
-        painter.draw(g, game, 1);
+        painter.draw(g, game, 1, 2);
     }
 
     public void receiveAllData() {

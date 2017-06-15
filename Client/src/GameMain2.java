@@ -144,7 +144,7 @@ public class GameMain2 extends GameMain {
     }
 
     public void drawGame(Graphics g) {
-        painter.draw(g, game, 0);
+        painter.draw(g, game, 0, 2);
         gameMainOp.drawGame(g);
     }
 
