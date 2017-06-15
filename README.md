@@ -8,7 +8,7 @@ cd Client
 sh run.sh
 ```
 To run server, excute
-```
+```bash
 cd Server
 sh run.sh
 ```
