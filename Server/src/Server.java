@@ -70,6 +70,15 @@ public class Server {
                 while (sc.hasNextInt()) blkList.add(sc.nextInt());
                 game.get(id).setNextBlk(blkList);
             }
+            if (in.readLine().equals("gauge")) {
+                game.get(id).setGauge(Integer.parseInt(in.readLine()));
+            }
+            if (in.readLine().equals("tetrish")) {
+                String boo = in.readLine();
+                if (boo.equals("true")) {
+                    game.get(id).setIsTetrish(true);
+                }
+            }
 
             sendAllData(id);
         } catch (Exception e) {
@@ -100,6 +109,15 @@ public class Server {
                 out.println(game.get(id).getHldBlk());
                 out.println("nextBlk");
                 out.println(game.get(id).getNextBlk());
+                out.println("gauge");
+                out.println(game.get(id).getGauge());
+                out.println("tetrish");
+                if (game.get(id).getIsTetrish()) {
+                    out.println("true");
+                    game.get(id).setIsTetrish(false);
+                } else {
+                    out.println("false");
+                }
 
             } catch(IOException e) {
                 e.printStackTrace();

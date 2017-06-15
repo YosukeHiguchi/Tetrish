@@ -10,13 +10,15 @@ import gui.paint.GamePainter;
 
 public class GameMainOp extends GameMain {
     private GameSystem game;
+    private GameMain2 gameMain2;
     private GamePainter painter;
     private Thread t;
     private Socket socket;
     private Boolean initial = true;
     private Boolean didEscape = false;
 
-    public GameMainOp(Socket socket) {
+    public GameMainOp(GameMain2 gameMain2, Socket socket) {
+        this.gameMain2 = gameMain2;
         this.socket = socket;
 
         game = new GameSystem();
@@ -75,6 +77,16 @@ public class GameMainOp extends GameMain {
                 while (sc.hasNextInt()) blkList.add(sc.nextInt());
                 game.setNextBlk(blkList);
             }
+            if (in.readLine().equals("gauge")) {
+                game.setGauge(Integer.parseInt(in.readLine()));
+            }
+            if (in.readLine().equals("tetrish")) {
+                String boo = in.readLine();
+                if (boo.equals("true")) {
+                    gameMain2.getGameSystem().setHldBlk(8);
+                }
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

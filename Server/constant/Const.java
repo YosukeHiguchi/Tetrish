@@ -38,6 +38,8 @@ public class Const {
 
     public static final int INIT_SPEED = 100;
 
+    public static final int MAX_GAUGE = 200;
+
     public static final int BLOCK_SPAWN_X[][] = {
         {3, 4, 5, 6},
         {4, 3, 3, 5},

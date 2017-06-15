@@ -64,8 +64,12 @@ public class Field {
             case SPACE:
                 while (isBlockMovable(movBlk, 2)) {
                     game.setScore(game.getScore() + 1);
+                    game.setGauge(game.getGauge() + 1);
                     movBlk.moveDown();
                 }
+
+                if (game.getGauge() > MAX_GAUGE) game.setGauge(MAX_GAUGE);
+
                 setMovingBlock();
                 game.update();
                 break;
@@ -78,7 +82,7 @@ public class Field {
     * remove the moving block from grid
     */
     public void clearMovingBlock() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < movBlk.getSize(); i++) {
             if (movBlk.getY(i) < 0)
                 grid[movBlk.getY(i) + FIELD_H + 3][movBlk.getX(i)] = 0;
             else
@@ -91,7 +95,7 @@ public class Field {
     */
     public Boolean setMovingBlock() {
         if (grid[0][4] != 0 || grid[0][5] != 0) return false;
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < movBlk.getSize(); i++) {
             if (movBlk.getY(i) < 0)
                 grid[movBlk.getY(i) + FIELD_H + 3][movBlk.getX(i)] = movBlk.getId();
             else
@@ -151,14 +155,14 @@ public class Field {
         int vecx[] = {1, -1, 0};
         int vecy[] = {0, 0, 1};
         //block out of field
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < BLOCK_SPAWN_X[movBlk.getId() - 1].length; i++) {
             if (b.getX(i) + vecx[vec] >= FIELD_W ||
                 b.getX(i) + vecx[vec] < 0        ||
                 b.getY(i) + vecy[vec] >= FIELD_H )
             return false;
         }
         //block towards fixed block
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < BLOCK_SPAWN_X[movBlk.getId() - 1].length; i++) {
             if (b.getY(i) < 0) continue;
 
             int adjBlk = grid[b.getY(i) + vecy[vec]][b.getX(i) + vecx[vec]];
@@ -173,9 +177,9 @@ public class Field {
     }
 
     private void calcGuideBlock() {
-        int x[] = new int[4];
-        int y[] = new int[4];
-        for (int i = 0; i < 4; i++) {
+        int x[] = new int[movBlk.getSize()];
+        int y[] = new int[movBlk.getSize()];
+        for (int i = 0; i < movBlk.getSize(); i++) {
             x[i] = movBlk.getX(i);
             y[i] = movBlk.getY(i);
         }

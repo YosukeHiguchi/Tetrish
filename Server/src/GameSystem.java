@@ -16,6 +16,9 @@ public class GameSystem {
     private Boolean didHold = false;
     private Boolean isGameOver = false;
 
+    private int gauge = 0;
+    private Boolean isTetrish = false;
+
     public GameSystem() {
         field = new Field(this);
         nextBlk = new ArrayList<Integer>();
@@ -57,6 +60,21 @@ public class GameSystem {
 
     public void setNextBlk(ArrayList<Integer> nextBlk) {
         this.nextBlk = nextBlk;
+    }
+
+    public int getGauge() {
+        return gauge;
+    }
+
+    public void setGauge(int gauge) {
+        this.gauge = gauge;
+    }
+
+    public Boolean getIsTetrish() {
+        return isTetrish;
+    }
+    public void setIsTetrish(Boolean isTetrish) {
+        this.isTetrish = isTetrish;
     }
 
     public void update() {

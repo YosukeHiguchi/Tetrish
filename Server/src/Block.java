@@ -4,13 +4,17 @@ import static constant.Const.*;
 
 public class Block {
     private int id;
-    private int x[] = new int[10];
-    private int y[] = new int[10];
+    private int x[];
+    private int y[];
     private int phase;
 
     public Block(int id) {
         phase = 1;
         this.id = id;
+
+        x = new int[BLOCK_SPAWN_X[id - 1].length];
+        y = new int[BLOCK_SPAWN_Y[id - 1].length];
+
         for (int i = 0; i < BLOCK_SPAWN_X[id - 1].length; i++) {
             x[i] = BLOCK_SPAWN_X[id - 1][i];
             y[i] = BLOCK_SPAWN_Y[id - 1][i];
@@ -19,6 +23,10 @@ public class Block {
 
     public Block(int id, int x[], int y[]) {
         this.id = id;
+
+        this.x = new int[x.length];
+        this.y = new int[y.length];
+
         for (int i = 0; i < x.length; i++) {
             this.x[i] = x[i];
             this.y[i] = y[i];
@@ -53,10 +61,14 @@ public class Block {
         return minInArray(x);
     }
 
+    public int getSize() {
+        return BLOCK_SPAWN_X[id - 1].length;
+    }
+
     public int maxInArray(int arr[]) {
         int max = arr[0];
 
-        for (int i = 1; i < 4; i++) {
+        for (int i = 1; i < getSize(); i++) {
             if (max < arr[i]) max = arr[i];
         }
 
@@ -65,7 +77,7 @@ public class Block {
     public int minInArray(int arr[]) {
         int min = arr[0];
 
-        for (int i = 1; i < 4; i++) {
+        for (int i = 1; i < getSize(); i++) {
             if (min > arr[i]) min = arr[i];
         }
 
@@ -73,20 +85,20 @@ public class Block {
     }
 
     public void moveRight() {
-        for (int i = 0; i < 4; i++) x[i]++;
+        for (int i = 0; i < getSize(); i++) x[i]++;
     }
 
     public void moveLeft() {
 
-        for (int i = 0; i < 4; i++) x[i]--;
+        for (int i = 0; i < getSize(); i++) x[i]--;
     }
 
     public void moveDown() {
-        for (int i = 0; i < 4; i++) y[i]++;
+        for (int i = 0; i < getSize(); i++) y[i]++;
     }
 
     public void moveUp() {
-        for (int i = 0; i < 4; i++) y[i]--;
+        for (int i = 0; i < getSize(); i++) y[i]--;
     }
 
     //turn around the 1st coordinate
@@ -120,7 +132,7 @@ public class Block {
     }
 
     public void turnCell(int centerX, int centerY, double angle) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < getSize(); i++) {
             int nx = (y[i] - centerY) * (int)Math.sin(angle) * -1 + centerX;
             int ny = (x[i] - centerX) * (int)Math.sin(angle) + centerY;
             x[i] = nx;
@@ -129,7 +141,7 @@ public class Block {
     }
 
     public Boolean isMyBlock(int gridX, int gridY) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < getSize(); i++) {
             if (x[i] == gridX && y[i] == gridY) return true;
         }
         return false;

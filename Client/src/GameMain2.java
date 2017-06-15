@@ -17,6 +17,8 @@ public class GameMain2 extends GameMain {
     private Thread t;
     private Boolean isKeyDown = false;
     private int contKey = -1;
+    private ArrayList<Integer> keyCommand;
+    private Boolean isTetrish = false;
 
     private Socket socket;
 
@@ -25,6 +27,7 @@ public class GameMain2 extends GameMain {
 
         painter = new GamePainter();
         game = new GameSystem();
+        keyCommand = new ArrayList<Integer>(Collections.nCopies(7, 0));
 
         try {
             InetAddress addr = InetAddress.getByName(address);
@@ -35,13 +38,17 @@ public class GameMain2 extends GameMain {
         }
 
         sendAllData();
-        gameMainOp = new GameMainOp(socket);
+        gameMainOp = new GameMainOp(this, socket);
 
         time = 0;
         onGame = true;
 
         t = new Thread(this);
         t.start();
+    }
+
+    public GameSystem getGameSystem() {
+        return game;
     }
 
     @Override
@@ -92,6 +99,16 @@ public class GameMain2 extends GameMain {
     }
 
     public void keyAction(int key) {
+        if (game.getGauge() == MAX_GAUGE) {
+            keyCommand.remove(0);
+            keyCommand.add(key);
+            if (checkCommand()) {
+                System.out.println("Tetrish!");
+                game.setGauge(0);
+                isTetrish = true;
+            }
+        }
+
         if (key == SPACE && !onGame && !game.getIsGameOver()) {
             onGame = true;
             return;
@@ -150,9 +167,27 @@ public class GameMain2 extends GameMain {
             out.println(game.getHldBlk());
             out.println("nextBlk");
             out.println(game.getNextBlk());
+            out.println("gauge");
+            out.println(game.getGauge());
+            out.println("tetrish");
+            if (isTetrish) {
+                out.println("true");
+                isTetrish = false;
+            } else {
+                out.println("false");
+            }
+
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Boolean checkCommand() {
+        for (int i = 0; i < keyCommand.size(); i++) {
+            if (TETRISH[i] != keyCommand.get(i)) return false;
+        }
+
+        return true;
     }
 }

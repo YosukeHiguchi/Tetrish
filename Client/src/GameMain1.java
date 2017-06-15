@@ -1,5 +1,6 @@
 package src;
 
+import java.util.*;
 import java.awt.*;
 
 import static constant.Const.*;
@@ -13,12 +14,14 @@ public class GameMain1 extends GameMain {
     private Thread t;
     private Boolean isKeyDown = false;
     private int contKey = -1;
+    private ArrayList<Integer> keyCommand;
 
     public GameMain1(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
 
         painter = new GamePainter();
         game = new GameSystem();
+        keyCommand = new ArrayList<Integer>(Collections.nCopies(7, 0));
 
         t = new Thread(this);
         t.start();
@@ -66,6 +69,16 @@ public class GameMain1 extends GameMain {
     }
 
     public void keyAction(int key) {
+        if (game.getGauge() == MAX_GAUGE) {
+            keyCommand.remove(0);
+            keyCommand.add(key);
+            System.out.println(keyCommand);
+            if (checkCommand()) {
+                game.setGauge(0);
+                game.setHldBlk(8);
+            }
+        }
+
         if (key == SPACE && !onGame && !game.getIsGameOver()) {
             onGame = true;
             return;
@@ -99,5 +112,13 @@ public class GameMain1 extends GameMain {
 
     public void drawGame(Graphics g) {
         painter.draw(g, game, 0);
+    }
+
+    public Boolean checkCommand() {
+        for (int i = 0; i < keyCommand.size(); i++) {
+            if (TETRISH[i] != keyCommand.get(i)) return false;
+        }
+
+        return true;
     }
 }

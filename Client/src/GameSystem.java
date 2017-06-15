@@ -14,6 +14,7 @@ public class GameSystem {
     private Field field;
     private ArrayList<Integer> nextBlk;
     private Boolean isGameOver = false;
+    private int gauge = -1;
 
     public GameSystem() {
         field = new Field(this);
@@ -60,6 +61,14 @@ public class GameSystem {
 
     public Boolean getIsGameOver() {
         return isGameOver;
+    }
+
+    public int getGauge() {
+        return gauge;
+    }
+
+    public void setGauge(int gauge) {
+        this.gauge = gauge;
     }
 
     public void update() {

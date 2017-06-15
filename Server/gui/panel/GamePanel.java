@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
         painter.drawField(g, player, game.getField());
         painter.drawHoldBlock(g, player, game.getHldBlk());
         painter.drawNextBlockList(g, player, game.getNextBlk());
+        painter.drawGauge((Graphics2D)g, player, game.getGauge());
     }
 
     @Override

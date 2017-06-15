@@ -9,6 +9,22 @@ import src.Block;
 import static constant.Const.*;
 
 public class GamePainter {
+    public void drawGauge(Graphics2D g2d, int player, int gauge) {
+        int pos = (player == 0)? 0: 482;
+
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.fillRect(20 + pos, 450, 40, 200);
+
+        Color color1 = Color.decode("#FF4000");
+        Color color2 = (gauge == MAX_GAUGE)? color1: Color.ORANGE;
+        GradientPaint gp = new GradientPaint(20 + pos, 450, color1, 20 + pos, 650, color2);
+        g2d.setPaint(gp);
+
+        g2d.fillRoundRect(20 + pos, 450 + (200 - gauge), 40, gauge, 15, 15);
+        g2d.setColor(Color.DARK_GRAY);
+        g2d.drawRect(20 + pos, 450, 40, 200);
+    }
+
     private int pauseCount = 0;
     private Boolean pauseStrOn = true;
     public void drawPauseScreen(Graphics2D g2d, String message) {
@@ -21,7 +37,7 @@ public class GamePainter {
 
         g2d.setColor(Color.WHITE);
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        
+
         int fontSize = (OS_NAME.startsWith("windows"))? 45: 50;
         int height = (OS_NAME.startsWith("windows"))? GAME_H_WIN: GAME_H;
         g2d.setFont(new Font("Impact", Font.BOLD, fontSize));
@@ -55,23 +71,20 @@ public class GamePainter {
         int pos = (player == 0)? 0: 482;
         Color c = BLOCK_COLOR[hldBlk - 1];
 
-        for (int i = 0; i < 4; i++) {
-            if (hldBlk == 1)
-            drawMiniCell(g, 20 + pos, 104, 13, BLOCK_SPAWN_X[hldBlk - 1][i] - 2, BLOCK_SPAWN_Y[hldBlk - 1][i], c);
-            else if (hldBlk == 4)
-            drawMiniCell(g, 9 + pos, 93, 17, BLOCK_SPAWN_X[hldBlk - 1][i] - 2, BLOCK_SPAWN_Y[hldBlk - 1][i] + 1, c);
-            else
-            drawMiniCell(g, 17 + pos, 93, 17, BLOCK_SPAWN_X[hldBlk - 1][i] - 2, BLOCK_SPAWN_Y[hldBlk - 1][i] + 1, c);
-        }
-    }
-
-    public void drawGuideBlock(Graphics g, Block b) {
-        Color base = BLOCK_COLOR[b.getId() - 1];
-        Color c = new Color(base.getRed(), base.getGreen(), base.getBlue(), 30);
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                drawCell(g, 0, b.getX(i), b.getY(i), c);
+        for (int i = 0; i < BLOCK_SPAWN_X[hldBlk - 1].length; i++) {
+            switch (hldBlk) {
+                case 1:
+                    drawMiniCell(g, 20 + pos, 104, 13, BLOCK_SPAWN_X[hldBlk - 1][i] - 2, BLOCK_SPAWN_Y[hldBlk - 1][i], c);
+                    break;
+                case 4:
+                    drawMiniCell(g, 9 + pos, 93, 17, BLOCK_SPAWN_X[hldBlk - 1][i] - 2, BLOCK_SPAWN_Y[hldBlk - 1][i] + 1, c);
+                    break;
+                case 8:
+                    drawMiniCell(g, 11 + pos, 104, 14, BLOCK_SPAWN_X[hldBlk - 1][i] - 2, BLOCK_SPAWN_Y[hldBlk - 1][i] + 1, c);
+                    break;
+                default:
+                    drawMiniCell(g, 17 + pos, 93, 17, BLOCK_SPAWN_X[hldBlk - 1][i] - 2, BLOCK_SPAWN_Y[hldBlk - 1][i] + 1, c);
+                    break;
             }
         }
     }
