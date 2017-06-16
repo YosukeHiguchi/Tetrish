@@ -8,6 +8,8 @@ public class Const {
 
     public static final String OS_NAME = System.getProperty("os.name").toLowerCase();
 
+    public static final int PORT = 50013;
+
     public static final int MENU_W = 539;
     public static final int MENU_H = 500;
 

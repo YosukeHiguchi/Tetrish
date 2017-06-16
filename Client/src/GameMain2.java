@@ -31,7 +31,7 @@ public class GameMain2 extends GameMain {
 
         try {
             InetAddress addr = InetAddress.getByName(address);
-            socket = new Socket(addr, 50001);
+            socket = new Socket(addr, PORT);
             System.out.println("Connected: " + addr);
         } catch(IOException e) {
             e.printStackTrace();
