@@ -12,3 +12,6 @@ To run server, excute
 cd Server
 sh run.sh
 ```
+
+## License
+MIT
